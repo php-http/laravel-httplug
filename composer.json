@@ -1,0 +1,26 @@
+{
+    "name": "php-http/laravel-httplug",
+    "description": "Laravel package to integrate the Httplug generic HTTP client into Laravel",
+    "keywords": ["http", "discovery", "adapter", "message", "factory", "bundle", "httplug", "php-http", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathieu Santo Stefano--Féron",
+            "email": "mathieu.santostefano@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5",
+        "php-http/httplug": "1.*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Http\\Httplug\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.1",
+        "fabpot/php-cs-fixer": "^1.11"
+    }
+}
