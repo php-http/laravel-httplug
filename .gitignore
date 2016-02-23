@@ -1,6 +1,8 @@
-.php_cs.cache
 vendor/
+build/
 .puli/
 puli.json
 composer.lock
-
+.php_cs.cache
+phpspec.yml
+phpunit.xml
