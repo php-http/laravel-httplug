@@ -6,7 +6,7 @@
  * (c) laravel-httplug <mathieu.santostefano@gmail.com>
  */
 
-namespace Http\Httplug;
+namespace Http\LaravelHttplug;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -14,6 +14,6 @@ class HttplugFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'http-httplug';
+        return 'laravel-httplug';
     }
 }

@@ -6,12 +6,17 @@
  * (c) laravel-httplug <mathieu.santostefano@gmail.com>
  */
 
-namespace Http\Httplug;
+namespace Http\LaravelHttplug;
+
+use Http\Client\HttpClient;
 
 class Httplug
 {
-    public static function hello()
+    /** @var HttpClient */
+    private $client;
+
+    public function __construct()
     {
-        return 'hello';
+        $this->client = '';
     }
 }

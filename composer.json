@@ -1,7 +1,7 @@
 {
     "name": "php-http/laravel-httplug",
     "description": "Laravel package to integrate the Httplug generic HTTP client into Laravel",
-    "keywords": ["http", "discovery", "adapter", "message", "factory", "bundle", "httplug", "php-http", "laravel"],
+    "keywords": ["http", "discovery", "adapter", "message", "factory", "bundle", "httplug", "php-http", "psr-7", "laravel"],
     "homepage": "http://php-http.org",
     "license": "MIT",
     "authors": [
@@ -13,12 +13,21 @@
     "require": {
         "php": ">=5.4",
         "illuminate/support": "~5",
-        "php-http/httplug": "1.*"
+        "php-http/client-common": "^1.1",
+        "php-http/message-factory": "^1.0",
+        "php-http/cache-plugin": "^1.0",
+        "php-http/logger-plugin": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.1",
-        "fabpot/php-cs-fixer": "^1.11",
-        "sllh/php-cs-fixer-styleci-bridge": "^1.5"
+        "friendsofphp/php-cs-fixer": "1.9.*",
+        "sllh/php-cs-fixer-styleci-bridge": "^1.5",
+        "php-http/curl-client": "^1.0",
+        "php-http/socket-client": "^1.0",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/react-adapter": "^0.1",
+        "php-http/buzz-adapter": "^0.1",
+        "php-http/message": "^1.0"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",
