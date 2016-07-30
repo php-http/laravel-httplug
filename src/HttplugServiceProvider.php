@@ -1,51 +1,94 @@
 <?php
 
-/*
- * This file is part of the laravel-httplug Project.
- *
- * (c) laravel-httplug <mathieu.santostefano@gmail.com>
- */
-
-namespace Http\LaravelHttplug;
+namespace Http\Httplug;
 
 use Illuminate\Support\ServiceProvider;
+use Http\Discovery\UriFactoryDiscovery;
+use Http\Discovery\StreamFactoryDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
 
 class HttplugServiceProvider extends ServiceProvider
 {
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+ 
     /**
      * Bootstrap the application services.
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/laravel-httplug.php' => $this->app->configPath().'/'.'laravel-httplug.php',
-        ], 'config');
+        $source = __DIR__.'/../config/laravel-httplug.php';
+        $this->publishes([$source => config_path('httplug.php')]);
+        $this->mergeConfigFrom($source, 'httplug');
     }
 
     /**
      * Register the application services.
+     *
+     * @return void
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-httplug.php', 'laravel-httplug');
-        $this->app->bind(Httplug::class, function () {
-            return new Httplug();
+        $this->registerHttplugFactories();
+        $this->registerHttplug();
+    }
+
+    /**
+     * Register php-http interfaces to container
+     *
+     * @return void
+     */
+    protected function registerHttplugFactories()
+    {
+        $this->app->bind('httplug.message_factory.default', function ($app) {
+            return MessageFactoryDiscovery::find();
         });
+        $this->app->alias('httplug.message_factory.default', 'Http\Message\MessageFactory');
+        $this->app->alias('httplug.message_factory.default', 'Http\Message\ResponseFactory');
 
-        $config = config('laravel-httplug');
+        $this->app->bind('httplug.uri_factory.default', function ($app) {
+            return UriFactoryDiscovery::find();
+        });
+        $this->app->alias('httplug.uri_factory.default', 'Http\Message\UriFactory');
 
-        foreach ($config['classes'] as $service => $class) {
-            if (!empty($class)) {
-                $this->app->register(sprintf('httplug.%s.default', $service), function() use($class) {
-                    return new $class();
-                });
-            }
-        }
+        $this->app->bind('httplug.stream_factory.default', function ($app) {
+            return StreamFactoryDiscovery::find();
+        });
+        $this->app->alias('httplug.stream_factory.default', 'Http\Message\StreamFactory');
+    }
 
-        foreach ($config['main_alias'] as $type => $id) {
-            $this->app->alias(sprintf('httplug.%s', $type), $id);
-        }
+    /**
+     * Register httplug to container
+     *
+     * @return void
+     */
+    protected function registerHttplug()
+    {
+        $this->app->singleton('httplug', function ($app) {
+            return new HttplugManager($app);
+        });
+        $this->app->alias('httplug', HttplugManager::class);
 
-        $this->app->alias(Httplug::class, 'laravel-httplug');
+        $this->app->singleton('httplug.default', function ($app) {
+            return $app['httplug']->driver();
+        });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'httplug',
+            'httplug.default',
+
+        ];
     }
 }
