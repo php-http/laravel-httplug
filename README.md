@@ -15,7 +15,7 @@ Via Composer
 $ composer require php-http/laravel-httplug
 ```
 
-Add service provider and alias
+Add serviceprovider and alias
 ```php
 <?php
 // config.app
@@ -39,26 +39,36 @@ Add service provider and alias
 
 ```
 
+Publish the package config file to config/httplug.php:
+
+```
+php artisan vendor:publish --provider="Http\Httplug\HttplugServiceProvider"
+```
 ## Usage
 
 ```php
 <?php
 
-    use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Request;
 
-    $httplug = app()->make('httplug');
-    $request = new Request('GET', 'http://httpbin.org');
+$httplug = app()->make('httplug');
+$request = new Request('GET', 'http://httpbin.org');
 
-    /**
-     * @var \Psr\Http\Message\ResponseInterface
-     */
-    $response = $httplug->driver()->sendRequest($request);
+/**
+ * Send request with default driver
+ * @var \Psr\Http\Message\ResponseInterface
+ */
+$response = $httplug->sendRequest($request);
+/**
+ * Send request with another driver
+ */
+$response = $httplug->driver('curl')->sendRequest($request);
 
-    // with Facade:
-    // Default driver
-    Httplug::sendRequest($request);
-    // another driver
-    Httplug::driver('curl')->sendRequest($request)
+// with Facade:
+// Default driver
+Httplug::sendRequest($request);
+// another driver
+Httplug::driver('curl')->sendRequest($request)
 
 ```
 

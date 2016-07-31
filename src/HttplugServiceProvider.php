@@ -22,7 +22,7 @@ class HttplugServiceProvider extends ServiceProvider
     public function boot()
     {
         $source = __DIR__.'/../config/laravel-httplug.php';
-        $this->publishes([$source => config_path('httplug.php')]);
+        $this->publishes([$source => config_path('httplug.php')], 'config');
         $this->mergeConfigFrom($source, 'httplug');
     }
 
