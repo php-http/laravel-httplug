@@ -23,7 +23,7 @@ Add serviceprovider and alias
 'providers' => [
     ...,
     ...,
-    
+
      Http\Httplug\HttplugServiceProvider::class,
 
 ],
@@ -31,7 +31,7 @@ Add serviceprovider and alias
 'aliases' => [
     ...,
     ...,
-    
+
     'Httplug'   => Http\Httplug\Facade\Httplug::class,
 
 ],
@@ -51,6 +51,12 @@ php artisan vendor:publish --provider="Http\Httplug\HttplugServiceProvider"
 
 use GuzzleHttp\Psr7\Request;
 
+/**
+* Using the factory
+ */
+$factory = app()->make('httplug.message_factory.default');
+$request = $factory->createRequest('GET', 'http://httpbin.org');
+
 $httplug = app()->make('httplug');
 $request = new Request('GET', 'http://httpbin.org');
 
@@ -64,11 +70,15 @@ $response = $httplug->sendRequest($request);
  */
 $response = $httplug->driver('curl')->sendRequest($request);
 
-// with Facade:
-// Default driver
-Httplug::sendRequest($request);
-// another driver
-Httplug::driver('curl')->sendRequest($request)
+/**
+ * Send request with default driver using facade
+ * @var \Psr\Http\Message\ResponseInterface
+ */
+$response = Httplug::sendRequest($request);
+/**
+ * Send request with another driver using facade
+ */
+$response = Httplug::driver('curl')->sendRequest($request)
 
 ```
 
