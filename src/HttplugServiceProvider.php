@@ -2,6 +2,10 @@
 
 namespace Http\Httplug;
 
+use Http\Message\UriFactory;
+use Http\Message\StreamFactory;
+use Http\Message\MessageFactory;
+use Http\Message\ResponseFactory;
 use Illuminate\Support\ServiceProvider;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
@@ -15,7 +19,7 @@ class HttplugServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = true;
- 
+
     /**
      * Bootstrap the application services.
      */
@@ -47,18 +51,18 @@ class HttplugServiceProvider extends ServiceProvider
         $this->app->bind('httplug.message_factory.default', function ($app) {
             return MessageFactoryDiscovery::find();
         });
-        $this->app->alias('httplug.message_factory.default', 'Http\Message\MessageFactory');
-        $this->app->alias('httplug.message_factory.default', 'Http\Message\ResponseFactory');
+        $this->app->alias('httplug.message_factory.default', MessageFactory::class);
+        $this->app->alias('httplug.message_factory.default', ResponseFactory::class);
 
         $this->app->bind('httplug.uri_factory.default', function ($app) {
             return UriFactoryDiscovery::find();
         });
-        $this->app->alias('httplug.uri_factory.default', 'Http\Message\UriFactory');
+        $this->app->alias('httplug.uri_factory.default', UriFactory::class);
 
         $this->app->bind('httplug.stream_factory.default', function ($app) {
             return StreamFactoryDiscovery::find();
         });
-        $this->app->alias('httplug.stream_factory.default', 'Http\Message\StreamFactory');
+        $this->app->alias('httplug.stream_factory.default', StreamFactory::class);
     }
 
     /**
@@ -88,6 +92,13 @@ class HttplugServiceProvider extends ServiceProvider
         return [
             'httplug',
             'httplug.default',
+            'httplug.message_factory.default',
+            'httplug.uri_factory.default',
+            'httplug.stream_factory.default',
+            MessageFactory::class,
+            ResponseFactory::class,
+            StreamFactory::class,
+            UriFactory::class,
 
         ];
     }
