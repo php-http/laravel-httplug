@@ -49,35 +49,22 @@ php artisan vendor:publish --provider="Http\Httplug\HttplugServiceProvider"
 ```php
 <?php
 
-use GuzzleHttp\Psr7\Request;
-
-/**
-* Using the factory
- */
+// Create a request using a MessageFactory
 $factory = app()->make('httplug.message_factory.default');
 $request = $factory->createRequest('GET', 'http://httpbin.org');
 
 $httplug = app()->make('httplug');
-$request = new Request('GET', 'http://httpbin.org');
 
-/**
- * Send request with default driver
- * @var \Psr\Http\Message\ResponseInterface
- */
+// Send request with default driver
 $response = $httplug->sendRequest($request);
-/**
- * Send request with another driver
- */
+
+// Send request with another driver
 $response = $httplug->driver('curl')->sendRequest($request);
 
-/**
- * Send request with default driver using facade
- * @var \Psr\Http\Message\ResponseInterface
- */
+// Send request with default driver using facade
 $response = Httplug::sendRequest($request);
-/**
- * Send request with another driver using facade
- */
+
+// Send request with another driver using facade
 $response = Httplug::driver('curl')->sendRequest($request)
 
 ```
@@ -87,7 +74,6 @@ $response = Httplug::driver('curl')->sendRequest($request)
 ``` bash
 $ composer test
 ```
-
 
 ## Contributing
 
