@@ -49,8 +49,6 @@ php artisan vendor:publish --provider="Http\Httplug\HttplugServiceProvider"
 ```php
 <?php
 
-use GuzzleHttp\Psr7\Request;
-
 // Create a request using a MessageFactory
 $factory = app()->make('httplug.message_factory.default');
 $request = $factory->createRequest('GET', 'http://httpbin.org');
