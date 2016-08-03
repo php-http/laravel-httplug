@@ -32,8 +32,6 @@ class HttplugServiceProvider extends ServiceProvider
 
     /**
      * Register the application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -42,9 +40,7 @@ class HttplugServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register php-http interfaces to container
-     *
-     * @return void
+     * Register php-http interfaces to container.
      */
     protected function registerHttplugFactories()
     {
@@ -66,9 +62,7 @@ class HttplugServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register httplug to container
-     *
-     * @return void
+     * Register httplug to container.
      */
     protected function registerHttplug()
     {

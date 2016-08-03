@@ -27,8 +27,7 @@ class HttplugManager extends Manager
     /**
      * Create a new HttplugManager instance.
      *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
+     * @param \Illuminate\Foundation\Application $app
      */
     public function __construct(Application $app)
     {
@@ -36,7 +35,7 @@ class HttplugManager extends Manager
     }
 
     /**
-     * Get default driver
+     * Get default driver.
      *
      * @return string
      */
@@ -44,16 +43,17 @@ class HttplugManager extends Manager
     {
         return $this->app['config']['httplug.default'];
     }
- 
+
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return array
      */
     protected function getConfig($name)
     {
         return $this->app['config']["httplug.adapters.{$name}"];
     }
- 
+
     /**
      * @return \Http\Adapter\Guzzle6\Client
      */
