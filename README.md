@@ -15,9 +15,72 @@ Via Composer
 $ composer require php-http/laravel-httplug
 ```
 
+Add serviceprovider and alias
+```php
+<?php
+// config.app
 
+'providers' => [
+    ...,
+    ...,
+
+     Http\Httplug\HttplugServiceProvider::class,
+
+],
+
+'aliases' => [
+    ...,
+    ...,
+
+    'Httplug'   => Http\Httplug\Facade\Httplug::class,
+
+],
+
+
+```
+
+Publish the package config file to config/httplug.php:
+
+```
+php artisan vendor:publish --provider="Http\Httplug\HttplugServiceProvider"
+```
 ## Usage
 
+```php
+<?php
+
+use GuzzleHttp\Psr7\Request;
+
+/**
+* Using the factory
+ */
+$factory = app()->make('httplug.message_factory.default');
+$request = $factory->createRequest('GET', 'http://httpbin.org');
+
+$httplug = app()->make('httplug');
+$request = new Request('GET', 'http://httpbin.org');
+
+/**
+ * Send request with default driver
+ * @var \Psr\Http\Message\ResponseInterface
+ */
+$response = $httplug->sendRequest($request);
+/**
+ * Send request with another driver
+ */
+$response = $httplug->driver('curl')->sendRequest($request);
+
+/**
+ * Send request with default driver using facade
+ * @var \Psr\Http\Message\ResponseInterface
+ */
+$response = Httplug::sendRequest($request);
+/**
+ * Send request with another driver using facade
+ */
+$response = Httplug::driver('curl')->sendRequest($request)
+
+```
 
 ## Testing
 
