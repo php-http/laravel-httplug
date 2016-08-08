@@ -5,6 +5,3 @@ finder:
         - "spec"
     path:
         - "src"
-
-enabled:
-    - short_array_syntax
