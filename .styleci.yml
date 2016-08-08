@@ -1,10 +1,7 @@
-preset: symfony
+preset: laravel
 
 finder:
     exclude:
         - "spec"
     path:
         - "src"
-
-enabled:
-    - short_array_syntax
