@@ -79,9 +79,6 @@ $ composer test
 
 Please see our [contributing guide](http://docs.php-http.org/en/latest/development/contributing.html).
 
-#### Attention
-*The `./src/Http` directory is named as well cause of Laravel structure, it's not related to Httplug library.*
-
 ## Security
 
 If you discover any security related issues, please contact us at [security@php-http.org](mailto:security@php-http.org).
