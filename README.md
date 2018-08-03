@@ -15,7 +15,10 @@ Via Composer
 $ composer require php-http/laravel-httplug
 ```
 
-Add serviceprovider and alias
+With Laravel 5.5 or newer, the package will be discovered automatically.
+If you're using an older version of Laravel, add the following to your
+`config/app.php`:
+
 ```php
 <?php
 // config.app
@@ -39,11 +42,12 @@ Add serviceprovider and alias
 
 ```
 
-Publish the package config file to config/httplug.php:
+Publish the package config file to `config/httplug.php`:
 
 ```
 php artisan vendor:publish --provider="Http\Httplug\HttplugServiceProvider"
 ```
+
 ## Usage
 
 ```php

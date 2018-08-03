@@ -49,5 +49,15 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Http\\Httplug\\HttplugServiceProvider"
+            ],
+            "aliases": {
+                "Httplug": "Http\\Httplug\\Facade\\Httplug"
+            }
+        }
     }
 }
